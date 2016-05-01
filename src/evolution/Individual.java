@@ -50,7 +50,7 @@ public class Individual {
         StringBuilder geneString = new StringBuilder();
         for (int i = 0; i < size(); i++) {
             geneString.append(getGene(i));
-            geneString.append("  ");
+            geneString.append(";");
         }
         return geneString.toString();
     }

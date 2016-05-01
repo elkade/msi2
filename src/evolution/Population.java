@@ -1,5 +1,7 @@
 package evolution;
 
+import java.util.Set;
+
 public class Population {
 
     Individual[] individuals;

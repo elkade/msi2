@@ -2,7 +2,12 @@ package msi;
 
 import java.io.IOException;
 
-import evolution.*;
+import evolution.Algorithm;
+import evolution.IFitness;
+import evolution.Population;
+import evolution.TestEvaluator;
+import tournament.ITournament;
+import tournament.Tournament;
 
 public class Program {
 	public static void main(String[] args) throws IOException {
@@ -12,7 +17,7 @@ public class Program {
 
 		char c = '1';
 		do {
-			c = (char)System.in.read();
+			
 			switch (c) {
 			case '1':
 				newTraining();
@@ -21,6 +26,7 @@ public class Program {
 			default:
 				break;
 			}
+			c = (char)System.in.read();
 		} while (c != 'q');
 		System.out.println("Bye");
 	}
@@ -31,8 +37,9 @@ public class Program {
         //FitnessCalculator.setSolution("1111000000000000000000000000000000000000000000000000000000001111");
 		IFitness fitnessCalc = new TestEvaluator();// new FitnessCalculator();
         // Create an initial population
-        Population myPop = new Population(1000, true, fitnessCalc);
-        Algorithm alg = new Algorithm();
+        Population myPop = new Population(20, true, fitnessCalc);
+        ITournament tournament = new Tournament();
+        Algorithm alg = new Algorithm(tournament);
         // Evolve our population until we reach an optimum solution
         int generationCount = 0;
         while (generationCount<10000)//(myPop.getFittest().getFitness(fitnessCalc) < FitnessCalculator.getMaxFitness(fitnessCalc))
