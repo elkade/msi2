@@ -16,43 +16,47 @@
 //    file that was distributed with this source code.
 
 package bot;
-import java.util.Random;
 
 /**
  * BotStarter class
  * 
- * Magic happens here. You should edit this file, or more specifically
- * the makeTurn() method to make your bot do more than random moves.
+ * Magic happens here. You should edit this file, or more specifically the
+ * makeTurn() method to make your bot do more than random moves.
  * 
  * @author Jim van Eeden <jim@starapple.nl>, Joost de Meij <joost@starapple.nl>
  */
+public class BotStarter {
 
-public class BotStarter {	
-     Field field;
-     
-     static double[] weights;
-     
-     /**
-      * Makes a turn. Edit this method to make your bot smarter.
-      *
-      * @return The column where the turn was made.
-      */
-     public int makeTurn() {
-         int move = new Random().nextInt(7);     
-         return move;
-     }
-     
- 	public static void main(String[] args) {
- 		String[] weightsStr = args[0].split(";", -1);
+    private Bot bot;
 
- 		weights = new double[weightsStr.length];
- 		int i = 0;
- 		for (String str : weightsStr){
- 			if(!str.isEmpty())
- 				weights[i++] = Double.parseDouble(str);
- 		}
- 		BotParser parser = new BotParser(new BotStarter());
- 		parser.run();
- 	}
- 	
- }
+    /**
+     * Makes a turn. Edit this method to make your bot smarter.
+     *
+     * @return The column where the turn was made.
+     */
+    public int makeTurn(Field field) {
+        return bot.getMove(field);
+    }
+
+    public static void main(String[] args) {
+        String[] weightsStr = args[0].split(";", -1);
+
+        double[] weights = new double[weightsStr.length];
+        int i = 0;
+        for (String str : weightsStr) {
+            if (!str.isEmpty())
+                weights[i++] = Double.parseDouble(str);
+        }
+        Bot bot = new Bot(weights);
+        BotStarter botStarter = new BotStarter();
+        botStarter.setBot(bot);
+
+        BotParser parser = new BotParser(botStarter);
+        parser.run();
+    }
+
+    public void setBot(Bot bot) {
+        this.bot = bot;
+    }
+
+}

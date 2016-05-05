@@ -1,13 +1,11 @@
 package tournament;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import engine.fourinarow.FourInARow;
 import evolution.Individual;
 import evolution.Population;
-import evolution.TestEvaluator;
 
 public class Tournament implements ITournament {
 	public Individual Perform(Population participants){
@@ -32,7 +30,7 @@ public class Tournament implements ITournament {
 	private Individual getWinner(Individual ind1, Individual ind2) {
 		try{
 	        FourInARow game = new FourInARow();
-	        String path = "java -cp C:\\Users\\Lukas\\Documents\\workspace_msi\\msi\\bin bot.BotStarter ";
+	        String path = "java -cp D:\\Prywatny\\studia\\msi2\\Fourinarow\\repo\\bin bot.BotStarter ";
 	        game.TEST_BOT_1 = path + ind1.toString();
 	        game.TEST_BOT_2 = path + ind2.toString();
 	
