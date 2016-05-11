@@ -19,6 +19,7 @@ package engine.game.player;
 
 import java.io.IOException;
 
+import lombok.extern.slf4j.Slf4j;
 import engine.engine.io.IOPlayer;
 
 /**
@@ -33,6 +34,7 @@ import engine.engine.io.IOPlayer;
  * @author Jim van Eeden <jim@starapple.nl>
  */
 
+@Slf4j
 public abstract class AbstractPlayer {
     
     private String name;
@@ -168,6 +170,7 @@ public abstract class AbstractPlayer {
      * @param info
      */
     private void sendLine(String content) {
+        log.info(content);
         try {
             this.bot.writeToBot(content);
         } catch (IOException e) {

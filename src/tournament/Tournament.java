@@ -30,7 +30,7 @@ public class Tournament implements ITournament {
 	private Individual getWinner(Individual ind1, Individual ind2) {
 		try{
 	        FourInARow game = new FourInARow();
-	        String path = "java -cp D:\\Prywatny\\studia\\msi2\\Fourinarow\\repo\\bin bot.BotStarter ";
+	        String path = "java -cp D:\\Prywatny\\studia\\msi2\\Fourinarow\\repo\\bin;D:\\Prywatny\\studia\\msi2\\Fourinarow\\repo\\lib\\neuroph-core-2.92.jar;D:\\Prywatny\\studia\\msi2\\Fourinarow\\repo\\lib\\slf4j-api-1.7.21.jar bot.BotStarter ";
 	        game.TEST_BOT_1 = path + ind1.toString();
 	        game.TEST_BOT_2 = path + ind2.toString();
 	

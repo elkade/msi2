@@ -42,7 +42,7 @@ public class Program {
         Algorithm alg = new Algorithm(tournament);
         // Evolve our population until we reach an optimum solution
         int generationCount = 0;
-        while (generationCount<100)//(myPop.getFittest().getFitness(fitnessCalc) < FitnessCalculator.getMaxFitness(fitnessCalc))
+        while (generationCount<10)//(myPop.getFittest().getFitness(fitnessCalc) < FitnessCalculator.getMaxFitness(fitnessCalc))
         {
             generationCount++;
             System.out.println("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness(fitnessCalc));
