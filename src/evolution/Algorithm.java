@@ -3,6 +3,7 @@ package evolution;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import tournament.ITournament;
 
@@ -42,31 +43,38 @@ public class Algorithm {
         // Loop over the population size and create new individuals with
         // crossover
 
-//        ExecutorService exec = Executors.newFixedThreadPool(1);
-//        try {
-//        	
-            for (int i = elitismOffset; i < pop.size(); i++) {
+        ExecutorService exec = Executors.newCachedThreadPool();//.newFixedThreadPool(4);
+        try {
+        	int n = pop.size();
+            for (int i = elitismOffset; i < n; i++) {
             	final int j = i;
-//                exec.submit(new Runnable() {
-//                    @Override
-//                    public void run() {
+                exec.submit(new Runnable() {
+                    @Override
+                    public void run() {
                     	System.out.println(String.format("Tournament %d",j));
-                        Individual indiv1 = tournamentSelection(pop);
+                        Individual indiv1 = tournamentSelection(pop);//pop.getIndividual(j);
                         //Individual indiv2 = tournamentSelection(pop);
                         Individual newIndiv = crossover(indiv1, indiv1);
                         newPopulation.saveIndividual(j, newIndiv);
-//                    }
-//                });
+                        
+                        mutate(newPopulation.getIndividual(j));
+                    }
+                });
             }
-//        } finally {
-//            exec.shutdown();
-//        }
-
-        // Mutate population
-        for (int i = elitismOffset; i < newPopulation.size(); i++) {
-            mutate(newPopulation.getIndividual(i));
+        } finally {
+            exec.shutdown();
         }
-        System.err.println((System.nanoTime()-t)/100000 + "ms\n");
+        try {
+			exec.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        // Mutate population
+//        for (int i = elitismOffset; i < newPopulation.size(); i++) {
+//            mutate(newPopulation.getIndividual(i));
+//        }
+        System.err.println((System.nanoTime()-t)/1000000 + "ms\n");
         return newPopulation;
     }
 
@@ -92,12 +100,7 @@ public class Algorithm {
             if (Math.random() <= mutationRate) {
                 // Create random gene
                 Random r = new Random();
-                double a = -1;
-                int x = r.nextInt(3);
-                if(x==1)
-                	a = 0;
-                else if(x==2)
-                	a = 1;
+                double a = r.nextGaussian();
                 indiv.setGene(i, indiv.getGene(i) + a);
             }
         }

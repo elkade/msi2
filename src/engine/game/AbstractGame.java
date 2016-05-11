@@ -147,7 +147,7 @@ public abstract class AbstractGame implements Logic {
 		
 		if(DEV_MODE) { // print the game file when in DEV_MODE
 			String playedGame = this.processor.getPlayedGame();
-			System.out.println(playedGame);
+			//System.out.println(playedGame);
 		} else { // save the game to database
 			try {
 				this.saveGame();
@@ -168,6 +168,6 @@ public abstract class AbstractGame implements Logic {
 		
 		// save results to file here
 		String playedGame = this.processor.getPlayedGame();
-		System.out.println(playedGame);
+		//System.out.println(playedGame);
 	}
 }
