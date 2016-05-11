@@ -52,6 +52,7 @@ public class Processor implements GameHandler {
 
     @Override
     public void playRound(int roundNumber) {
+        System.out.println("Round " + roundNumber);
         for (Player player : mPlayers) {
             player.sendUpdate("round",  mRoundNumber);
             player.sendUpdate("field", mField.toString());

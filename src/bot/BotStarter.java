@@ -17,6 +17,8 @@
 
 package bot;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * BotStarter class
  * 
@@ -25,6 +27,7 @@ package bot;
  * 
  * @author Jim van Eeden <jim@starapple.nl>, Joost de Meij <joost@starapple.nl>
  */
+@Slf4j
 public class BotStarter {
 
     private Bot bot;
@@ -39,6 +42,7 @@ public class BotStarter {
     }
 
     public static void main(String[] args) {
+        log.info("Received args: " + args);
         String[] weightsStr = args[0].split(";", -1);
 
         double[] weights = new double[weightsStr.length];
@@ -48,6 +52,7 @@ public class BotStarter {
                 weights[i++] = Double.parseDouble(str);
         }
         Bot bot = new Bot(weights);
+        log.info("Created bot: " + bot.toString());
         BotStarter botStarter = new BotStarter();
         botStarter.setBot(bot);
 

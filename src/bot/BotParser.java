@@ -30,7 +30,7 @@ import java.util.Scanner;
 public class BotParser {
     
 	final Scanner scan;
-    final BotStarter bot;
+    final BotStarter botStarter;
     
     private Field mField;
     public static int mBotId = 0;
@@ -38,7 +38,7 @@ public class BotParser {
     
     public BotParser(BotStarter bot) {
 		this.scan = new Scanner(System.in);
-		this.bot = bot;
+		this.botStarter = bot;
 	}
     
     public void run() {
@@ -69,7 +69,7 @@ public class BotParser {
                 }
             } else if(parts[0].equals("action")) {
                 if (parts[1].equals("move")) { /* move requested */
-                    int column = bot.makeTurn(mField);
+                    int column = botStarter.makeTurn(mField);
                     System.out.println("place_disc " + column);
                 }
             }
