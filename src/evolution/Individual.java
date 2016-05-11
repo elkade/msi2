@@ -2,9 +2,11 @@ package evolution;
 
 import java.util.Random;
 
+import neural.PerceptronFourInARowNetwork;
+
 public class Individual {
 
-    static int defaultGeneLength = 16;
+    static int defaultGeneLength = PerceptronFourInARowNetwork.NEURON_COUNT;
     private double[] genes = new double[defaultGeneLength];
     // Cache
     private double fitness = 0;

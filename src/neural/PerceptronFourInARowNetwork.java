@@ -17,6 +17,8 @@ public class PerceptronFourInARowNetwork extends MultiLayerPerceptron {
 
     private static List<Integer> layersCount;
 
+    public static int NEURON_COUNT = (INPUT_COUNT + 1) * HIDDEN_COUNT + (HIDDEN_COUNT + 1) * OUTPUT_COUNT;
+
     static {
         layersCount = new ArrayList<Integer>();
         layersCount.add(new Integer(INPUT_COUNT));
@@ -45,5 +47,4 @@ public class PerceptronFourInARowNetwork extends MultiLayerPerceptron {
         }
         return bestMove;
     }
-
 }
