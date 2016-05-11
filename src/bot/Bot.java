@@ -5,7 +5,7 @@ import java.util.List;
 
 import neural.PerceptronFourInARowNetwork;
 
-public class Bot {
+public class Bot implements IBot {
 
     private static int COLS = 7;
     private static int ROWS = 6;

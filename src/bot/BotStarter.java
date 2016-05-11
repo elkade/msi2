@@ -28,7 +28,7 @@ package bot;
  */
 public class BotStarter {
 
-    private Bot bot;
+    private IBot bot;
 
     /**
      * Makes a turn. Edit this method to make your bot smarter.
@@ -48,7 +48,7 @@ public class BotStarter {
             if (!str.isEmpty())
                 weights[i++] = Double.parseDouble(str);
         }
-        Bot bot = new Bot(weights);
+        IBot bot = new Bot(weights);
         BotStarter botStarter = new BotStarter();
         botStarter.setBot(bot);
 
@@ -56,7 +56,7 @@ public class BotStarter {
         parser.run();
     }
 
-    public void setBot(Bot bot) {
+    public void setBot(IBot bot) {
         this.bot = bot;
     }
 
