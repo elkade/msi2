@@ -45,14 +45,14 @@ public class Program {
         while (generationCount<10)//(myPop.getFittest().getFitness(fitnessCalc) < FitnessCalculator.getMaxFitness(fitnessCalc))
         {
             generationCount++;
-            //System.out.println("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness(fitnessCalc));
-            //System.out.println(myPop.getFittest());
+            System.out.println("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness(fitnessCalc));
+            System.out.println(myPop.getFittest());
             myPop = alg.evolvePopulation(myPop);
         }
         System.out.println("Solution found!");
         System.out.println("Generation: " + generationCount);
         System.out.println("Genes:");
-        //System.out.println(myPop.getFittest());
+        System.out.println(myPop.getFittest());
 	}
 
 }
