@@ -1,15 +1,13 @@
 package msi;
 
-import java.beans.XMLEncoder;
-import java.io.BufferedOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
+import bot.IBot;
+import bot.PassiveBot;
+import bot.RandomBot;
 import evolution.Algorithm;
-import evolution.IFitness;
 import evolution.Population;
-import evolution.TestEvaluator;
+import tournament.FinalTournament;
 import tournament.ITournament;
 import tournament.Tournament;
 
@@ -25,6 +23,7 @@ public class Program {
 
 		System.out.println("1 - new training.");
 		System.out.println("2 - read population.");
+		System.out.println("3 - test population and get best.");
 		
 		char c = '1';
 		do {
@@ -37,13 +36,26 @@ public class Program {
 				readPopulation();
 				break;
 			case '3':
-				//getBestIndividual();
+				test();
 				break;
 			default:
 				break;
 			}
 		} while (c != 'q');
 		System.out.println("Bye");
+	}
+
+	private static void test() {
+		if(myPop==null)
+			return;
+		IBot[] bots = new IBot[2];
+		bots[0] = new RandomBot();
+		bots[1] = new PassiveBot();//trzeba mu ustawiæ id
+		ITournament finalTournament = new FinalTournament(bots);
+		
+		Tester tester = new Tester(myPop, finalTournament);
+		
+		
 	}
 
 	private static void readPopulation() {

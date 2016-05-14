@@ -10,7 +10,7 @@ public class PassiveBot implements IBot {
 	private int id;
 	private int enemyId;
 	
-	public PassiveBot(int id) {
+	public void setId(int id) {
 		this.id = id;
 		if(id==1)
 			enemyId = 2;

@@ -3,11 +3,18 @@ package tournament;
 import java.util.HashMap;
 import java.util.Map;
 
+import bot.IBot;
 import evolution.Individual;
 import evolution.Population;
 
-public class Tournament extends TournamentBase {
-	@Override
+public class FinalTournament extends TournamentBase {
+
+	private IBot[] testBots;
+	
+	public FinalTournament(IBot[] testBots) {
+		this.testBots = testBots;
+	}
+
 	public Individual Perform(Population participants){
 		Map<Individual, Integer> scores = new HashMap<Individual, Integer>();
 		for (int i = 0; i < participants.size(); i++) {
@@ -26,6 +33,7 @@ public class Tournament extends TournamentBase {
 		}
 		return getBest(scores);
 	}
+
 	
 	private Individual getBest(Map<Individual, Integer> map){
 		Map.Entry<Individual, Integer> maxEntry = null;
