@@ -1,13 +1,14 @@
 package evolution;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import neural.PerceptronFourInARowNetwork;
 
-public class Individual {
+public class Individual implements Serializable {
 
     static int defaultGeneLength = PerceptronFourInARowNetwork.NEURON_COUNT;
-    private double[] genes = new double[defaultGeneLength];
+    public double[] genes = new double[defaultGeneLength];
     // Cache
     private double fitness = 0;
 

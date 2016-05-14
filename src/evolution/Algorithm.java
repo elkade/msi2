@@ -25,12 +25,12 @@ public class Algorithm {
     
     // Evolve a population
     public Population evolvePopulation(Population pop) {
-        Population newPopulation = new Population(pop.size(), false, pop.getFitnessCalculator());
+        Population newPopulation = new Population(pop.size(), false);
 		long t = System.nanoTime();
 
         // Keep our best individual
         if (elitism) {
-            newPopulation.saveIndividual(0, pop.getFittest());
+            //newPopulation.saveIndividual(0, pop.getFittest());
         }
 
         // Crossover population
@@ -109,7 +109,7 @@ public class Algorithm {
     // Select individuals for crossover
     private Individual tournamentSelection(Population pop) {
         // Create a tournament population
-        Population participants = new Population(tournamentSize, false, pop.getFitnessCalculator());
+        Population participants = new Population(tournamentSize, false);
         // For each place in the tournament get a random individual
         for (int i = 0; i < tournamentSize; i++) {
             int randomId = (int) (Math.random() * pop.size());
