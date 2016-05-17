@@ -17,8 +17,6 @@
 
 package engine.game.player;
 
-import java.io.IOException;
-
 import engine.engine.io.IOPlayer;
 
 /**
@@ -34,40 +32,40 @@ import engine.engine.io.IOPlayer;
  */
 
 public abstract class AbstractPlayer {
-    
+
     private String name;
-    private IOPlayer bot;
+    private IOPlayer ioPlayer;
     private long timeBank;
     private long maxTimeBank;
     private long timePerMove;
-    
-    public AbstractPlayer(String name, IOPlayer bot, long maxTimeBank, long timePerMove) {
+
+    public AbstractPlayer(String name, IOPlayer ioPlayer, long maxTimeBank, long timePerMove) {
         this.name = name;
-        this.bot = bot;
+        this.ioPlayer = ioPlayer;
         this.timeBank = maxTimeBank;
         this.maxTimeBank = maxTimeBank;
         this.timePerMove = timePerMove;
     }
-    
+
     /**
      * @return : The String name of this Player
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @return : The time left in this player's time bank
      */
     public long getTimeBank() {
         return timeBank;
     }
-    
+
     /**
      * @return : The Bot object of this Player
      */
     public IOPlayer getBot() {
-        return bot;
+        return ioPlayer;
     }
 
     /**
@@ -76,7 +74,7 @@ public abstract class AbstractPlayer {
     public void setTimeBank(long time) {
         this.timeBank = time;
     }
-    
+
     /**
      * Updates the time bank for this player, cannot get bigger than maximal time bank or smaller than zero
      * @param timeElapsed : time consumed from the time bank
@@ -85,7 +83,7 @@ public abstract class AbstractPlayer {
         this.timeBank = Math.max(this.timeBank - timeElapsed, 0);
         this.timeBank = Math.min(this.timeBank + this.timePerMove, this.maxTimeBank);
     }
-    
+
     /**
      * Send one setting to the player
      * @param type : setting type
@@ -94,7 +92,7 @@ public abstract class AbstractPlayer {
     public void sendSetting(String type, String value) {
         sendLine(String.format("settings %s %s", type, value));
     }
-    
+
     /**
      * Send one setting to the player
      * @param type : setting type
@@ -103,7 +101,7 @@ public abstract class AbstractPlayer {
     public void sendSetting(String type, int value) {
         sendLine(String.format("settings %s %d", type, value));
     }
-    
+
     /**
      * Sends one update to the player about another player or himself
      * @param type : type of update
@@ -113,7 +111,7 @@ public abstract class AbstractPlayer {
     public void sendUpdate(String type, AbstractPlayer player, String value) {
         sendLine(String.format("update %s %s %s", player.getName(), type, value));
     }
-    
+
     /**
      * Sends one update to the player about another player or himself
      * @param type : type of update
@@ -123,7 +121,7 @@ public abstract class AbstractPlayer {
     public void sendUpdate(String type, AbstractPlayer player, int value) {
         sendLine(String.format("update %s %s %d", player.getName(), type, value));
     }
-    
+
     /**
      * Sends one update to the player about the game in general, like round number
      * @param type
@@ -132,7 +130,7 @@ public abstract class AbstractPlayer {
     public void sendUpdate(String type, String value) {
         sendLine(String.format("update game %s %s", type, value));
     }
-    
+
     /**
      * Sends one update to the player about the game in general, like round number
      * @param type : type of update
@@ -141,7 +139,7 @@ public abstract class AbstractPlayer {
     public void sendUpdate(String type, int value) {
         sendLine(String.format("update game %s %d", type, value));
     }
-    
+
     /**
      * Asks the bot for given move type and returns the answer
      * @param moveType : type of move the bot has to return
@@ -149,30 +147,26 @@ public abstract class AbstractPlayer {
      */
     public String requestMove(String moveType) {
         long startTime = System.currentTimeMillis();
-        
+
         // write the request to the bot
         sendLine(String.format("action %s %d", moveType, this.timeBank));
 
         // wait for the bot to return his response
-        String response = this.bot.getResponse(this.timeBank);
-        
+        String response = this.ioPlayer.getResponse(this.timeBank);
+
         // update the timebank
         long timeElapsed = System.currentTimeMillis() - startTime;
         updateTimeBank(timeElapsed);
-        
+
         return response;
     }
-    
+
     /**
      * Sends given string to bot
      * @param info
      */
     private void sendLine(String content) {
         System.out.println("Writing to bot: " + content);
-        try {
-            this.bot.writeToBot(content);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ioPlayer.writeToBot(content);
     }
 }

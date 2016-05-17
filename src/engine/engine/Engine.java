@@ -15,14 +15,14 @@
 //    For the full copyright and license information, please view the LICENSE
 //    file that was distributed with this source code.
 
-
 package engine.engine;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import bot.BotParser;
 import engine.engine.io.IOPlayer;
-import engine.game.player.AbstractPlayer;
+
 /**
  * Engine class
  * 
@@ -34,36 +34,30 @@ import engine.game.player.AbstractPlayer;
  * @author Jackie Xu <jackie@starapple.nl>, Jim van Eeden <jim@starapple.nl>
  */
 public class Engine {
-    
+
     private boolean isRunning; // Boolean representing current engine running state
     private Logic logic; // Class implementing Logic interface; handles all data
     private ArrayList<IOPlayer> players; // ArrayList containing player handlers
-    
+
     // Engine constructor 
     public Engine() {
         this.isRunning = false;
         this.players = new ArrayList<IOPlayer>();
     }
-    
+
     /**
      * Start up the bot process and add the player to the game
      * @param command : command to start a bot process
      */
-    public void addPlayer(String command, String idString) throws IOException {
-
-        // Create new process
-        Process process = Runtime.getRuntime().exec(command);
+    public void addPlayer(BotParser botParser, String idString) throws IOException {
 
         // Attach IO to process
-        IOPlayer player = new IOPlayer(process, idString);
+        IOPlayer player = new IOPlayer(botParser, idString);
 
         // Add player
         this.players.add(player);
-
-        // Start running
-        player.run();
     }
-    
+
     /**
      * Sets the game's logic
      * @param logic
@@ -71,7 +65,7 @@ public class Engine {
     public void setLogic(Logic logic) {
         this.logic = logic;
     }
-    
+
     /**
      * Determines whether the game has ended
      * @return : true if the game has ended
@@ -79,52 +73,51 @@ public class Engine {
     public boolean hasEnded() {
         return this.logic.isGameOver();
     }
-    
-    
+
     /**
      * @return : A list of all the players in this game
      */
     public ArrayList<IOPlayer> getPlayers() {
         return this.players;
     }
-    
+
     /**
      * Starts the game
      */
     public void start() throws Exception {
-        
+
         int round = 0;
-        
+
         // Set engine to running
         this.isRunning = true;
-        
+
         // Set up game settings
         this.logic.setupGame(this.players);
 
         // Keep running
         while (this.isRunning) {
-            
+
             round++;
 
             // Play a round
             this.logic.playRound(round);
-            
+
             // Check if win condition has been met
             if (this.hasEnded()) {
-                
-                //System.out.println("stopping...");
-                
+
+                System.out.println("stopping...");
+
                 // Stop running
                 this.isRunning = false;
-                
+
                 // Close off everything
                 try {
                     this.logic.finish();
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+                    throw new RuntimeException(ex);
                 }
             }
         }
     }
-    
+
 }

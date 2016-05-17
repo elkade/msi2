@@ -31,6 +31,10 @@ public class Individual implements Serializable {
         return genes[index];
     }
 
+    public double[] getGenes() {
+        return genes;
+    }
+
     public void setGene(int index, double value) {
         genes[index] = value;
         fitness = 0;

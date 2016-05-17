@@ -83,18 +83,4 @@ public class FourInARow extends AbstractGame {
         super.engine.setLogic(this);
         super.engine.start();
     }
-    
-    // DEV_MODE can be turned on to easily test the
-    // engine from eclipse
-    public static void main(String args[]) throws Exception {
-        FourInARow game = new FourInARow();
-
-        // DEV_MODE settings
-        game.TEST_BOT_1 = "java -cp /home/jim/workspace/fourinarow-starterbot-java/bin/ bot.BotStarter";
-        game.NUM_TEST_BOTS = 2;
-        game.DEV_MODE = false;
-        
-        game.setupEngine(args);
-        game.runEngine();
-    }
 }

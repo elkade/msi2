@@ -16,7 +16,7 @@
 //    file that was distributed with this source code.
 
 package bot;
-import java.util.Scanner;
+
 
 /**
  * MyBot class
@@ -28,54 +28,49 @@ import java.util.Scanner;
  */
 
 public class BotParser {
-    
-	final Scanner scan;
-    final BotStarter botStarter;
-    
-    private Field mField;
+
+    private IBot bot;
+
+    private Field mField = new Field(0, 0);
     public static int mBotId = 0;
 
-    
-    public BotParser(BotStarter bot) {
-		this.scan = new Scanner(System.in);
-		this.botStarter = bot;
-	}
-    
-    public void run() {
-        mField = new Field(0, 0);
-        while(scan.hasNextLine()) {
-            String line = scan.nextLine();
+    public BotParser(IBot bot) {
+        this.bot = bot;
+    }
 
-            if(line.length() == 0) {
-                continue;
-            }
+    public String processCommand(String command) {
+        String line = command;
 
-            String[] parts = line.split(" ");
-            
-            if(parts[0].equals("settings")) {
-                if (parts[1].equals("field_columns")) {
-                    mField.setColumns(Integer.parseInt(parts[2]));
-                }
-                if (parts[1].equals("field_rows")) {
-                    mField.setRows(Integer.parseInt(parts[2]));
-                }
-                if (parts[1].equals("your_botid")) {
-                    mBotId = Integer.parseInt(parts[2]);
-                }
-            } else if(parts[0].equals("update")) { /* new field data */
-                if (parts[2].equals("field")) {
-                    String data = parts[3];
-                    mField.parseFromString(data); /* Parse Field with data */
-                }
-            } else if(parts[0].equals("action")) {
-                if (parts[1].equals("move")) { /* move requested */
-                    int column = botStarter.makeTurn(mField);
-                    System.out.println("place_disc " + column);
-                }
-            }
-            else { 
-                System.out.println("unknown command");
-            }
+        if (line.length() == 0) {
+            return null;
         }
+
+        String[] parts = line.split(" ");
+
+        if (parts[0].equals("settings")) {
+            if (parts[1].equals("field_columns")) {
+                mField.setColumns(Integer.parseInt(parts[2]));
+            }
+            if (parts[1].equals("field_rows")) {
+                mField.setRows(Integer.parseInt(parts[2]));
+            }
+            if (parts[1].equals("your_botid")) {
+                mBotId = Integer.parseInt(parts[2]);
+            }
+        } else if (parts[0].equals("update")) { /* new field data */
+            if (parts[2].equals("field")) {
+                String data = parts[3];
+                mField.parseFromString(data); /* Parse Field with data */
+            }
+        } else if (parts[0].equals("action")) {
+            if (parts[1].equals("move")) { /* move requested */
+                int column = bot.getMove(mField);
+                return ("place_disc " + column);
+            }
+        } else {
+            return ("unknown command");
+        }
+
+        return null;
     }
 }

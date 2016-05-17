@@ -1,5 +1,7 @@
 package tournament;
 
+import bot.Bot;
+import bot.BotParser;
 import engine.fourinarow.FourInARow;
 import evolution.Individual;
 import evolution.Population;
@@ -10,11 +12,8 @@ public abstract class TournamentBase implements ITournament {
 	protected Individual getWinner(Individual ind1, Individual ind2) {
 		try{
 	        FourInARow game = new FourInARow();
-	        String path = "java -cp C:\\Users\\Lukas\\Documents\\workspace_msi\\msi\\bin;C:\\Users\\Lukas\\Documents\\workspace_msi\\msi\\lib\\neuroph-core-2.92.jar;C:\\Users\\Lukas\\Documents\\workspace_msi\\msi\\lib\\slf4j-api-1.7.21.jar bot.BotStarter ";
-	        game.TEST_BOT_1 = path + ind1.toString();
-	        game.TEST_BOT_2 = path + ind2.toString();
-	
-	        game.DEV_MODE = true;
+	        game.TEST_BOT_1 = new BotParser(new Bot(ind1.getGenes()));
+	        game.TEST_BOT_2 = new BotParser(new Bot(ind2.getGenes()));
 	        
 	        game.setupEngine(null);
 	        game.runEngine();
@@ -26,7 +25,7 @@ public abstract class TournamentBase implements ITournament {
 		}
 		catch(Exception ex){
 			System.err.println(ex.getStackTrace());
-			return ind1;
+			throw new RuntimeException(ex);
 		}
 	}
 	
