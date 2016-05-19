@@ -21,6 +21,8 @@ public class FinalTournament extends TournamentBase {
 			for (int j = 1; j < participants.size(); j++) {
 				long t = System.nanoTime();
 				Individual winner = getWinner(participants.getIndividual(i), participants.getIndividual(j));
+				if(winner==null)
+					continue;
 				//System.err.println((System.nanoTime()-t)/100000 + "ms\n");
 				Integer score = scores.get(winner);
 				if(score==null)scores.put(winner, 1);

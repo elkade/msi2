@@ -5,6 +5,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import javax.management.RuntimeErrorException;
+
 import tournament.ITournament;
 
 public class Algorithm {
@@ -12,7 +14,7 @@ public class Algorithm {
     /* GA parameters */
     private static final double uniformRate = 0.0;
     private static final double mutationRate = 0.015;
-    private static final int tournamentSize = 3;
+    private static final int tournamentSize = 10;
     private static final boolean elitism = false;
 
     /* Public methods */
@@ -51,8 +53,12 @@ public class Algorithm {
                 exec.submit(new Runnable() {
                     @Override
                     public void run() {
-                    	System.out.println(String.format("Tournament %d",j));
+                    	//System.out.println(String.format("Tournament %d",j));
                         Individual indiv1 = tournamentSelection(pop);//pop.getIndividual(j);
+                        if(indiv1==null){
+                        	Random r = new Random();
+                        	indiv1=pop.getIndividual(r.nextInt(pop.size()));
+                        }
                         //Individual indiv2 = tournamentSelection(pop);
                         Individual newIndiv = crossover(indiv1, indiv1);
                         newPopulation.saveIndividual(j, newIndiv);
@@ -67,7 +73,6 @@ public class Algorithm {
         try {
 			exec.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         // Mutate population
@@ -82,6 +87,7 @@ public class Algorithm {
     private Individual crossover(Individual indiv1, Individual indiv2) {
         Individual newSol = new Individual();
         // Loop through genes
+        try{
         for (int i = 0; i < indiv1.size(); i++) {
             // Crossover
             if (Math.random() <= uniformRate) {
@@ -89,6 +95,11 @@ public class Algorithm {
             } else {
                 newSol.setGene(i, indiv2.getGene(i));
             }
+        }
+        }
+        catch(NullPointerException e){
+        	System.err.println(e.getStackTrace());
+        	throw new RuntimeException(e);
         }
         return newSol;
     }

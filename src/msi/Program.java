@@ -14,7 +14,7 @@ import tournament.Tournament;
 public class Program {
 	
 	private static final String SERIALIZED_FILE_NAME = "best_population.xml";
-	private static final int POPULATION_COUNT = 7;
+	private static final int POPULATION_COUNT = 100;
 	
 	private static Population myPop = null;
 	
@@ -70,11 +70,13 @@ public class Program {
         ITournament tournament = new Tournament();
         Algorithm alg = new Algorithm(tournament);
         int generationCount = 0;
-        while (generationCount<10)
+        while (generationCount<1000)
         {
+        	System.out.println("Generation: "+generationCount);
             generationCount++;
             myPop = alg.evolvePopulation(myPop);
             myPop.save(SERIALIZED_FILE_NAME);
+            System.out.println(myPop.getIndividual(0));
         }
         System.out.println("Solution found!");
 	}

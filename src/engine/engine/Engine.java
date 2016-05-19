@@ -105,7 +105,7 @@ public class Engine {
             // Check if win condition has been met
             if (this.hasEnded()) {
 
-                System.out.println("stopping...");
+                //System.out.println("stopping...");
 
                 // Stop running
                 this.isRunning = false;

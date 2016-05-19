@@ -7,7 +7,8 @@ import neural.PerceptronFourInARowNetwork;
 
 public class Individual implements Serializable {
 
-    static int defaultGeneLength = PerceptronFourInARowNetwork.NEURON_COUNT;
+	private static final long serialVersionUID = 1L;
+	static int defaultGeneLength = PerceptronFourInARowNetwork.NEURON_COUNT;
     public double[] genes = new double[defaultGeneLength];
     // Cache
     private double fitness = 0;

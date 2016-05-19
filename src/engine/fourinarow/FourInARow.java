@@ -63,7 +63,9 @@ public class FourInARow extends AbstractGame {
     }
 
 	 public String getWinnerName(){
-		 return this.processor.getWinner().getName();		 
+		 AbstractPlayer winner = this.processor.getWinner();
+		 if(winner!=null)return winner.getName();
+		 return null;
 	 }
     
     @Override

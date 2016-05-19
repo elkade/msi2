@@ -18,8 +18,8 @@ public abstract class TournamentBase implements ITournament {
 	        game.setupEngine(null);
 	        game.runEngine();
 	        String winner = game.getWinnerName();
-	        
-	        if(winner.equals("player1"))return ind1;
+	        if(winner==null)return null;
+	        else if(winner.equals("player1"))return ind1;
 	        else if(winner.equals("player2")) return ind2;
 	        throw new Exception("Bad player name");
 		}

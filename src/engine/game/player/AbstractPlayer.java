@@ -166,7 +166,7 @@ public abstract class AbstractPlayer {
      * @param info
      */
     private void sendLine(String content) {
-        System.out.println("Writing to bot: " + content);
+        //System.out.println("Writing to bot: " + content);
         ioPlayer.writeToBot(content);
     }
 }
