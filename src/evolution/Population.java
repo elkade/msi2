@@ -48,7 +48,11 @@ public class Population {
 
     // Save individual
     public void saveIndividual(int index, Individual indiv) {
-        individuals[index] = indiv;
+    	Individual newInd = new Individual();
+        for (int i = 0; i < indiv.size(); i++) {
+        	newInd.setGene(i, indiv.getGene(i));
+        }
+        individuals[index] = newInd;
     }
     
 	public void save(String filename) {

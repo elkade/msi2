@@ -62,4 +62,13 @@ public class Individual implements Serializable {
         }
         return geneString.toString();
     }
+    public String toCode(){
+    	StringBuilder geneString = new StringBuilder("new double[]{");
+    	for (int i = 0; i < genes.length; i++) {
+    		geneString.append(genes[i]);
+    		geneString.append(",");
+		}
+    	geneString.append("}");
+    	return geneString.toString();
+    }
 }

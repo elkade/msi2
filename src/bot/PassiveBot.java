@@ -19,6 +19,7 @@ public class PassiveBot implements IBot {
 
 	@Override
 	public int getMove(Field field) {
+		System.out.println(field);
 		int bestMove = -1;
 		int enemyCounter = 0;
 		int myCounter = 0;
