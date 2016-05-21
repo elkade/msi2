@@ -5,9 +5,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Scanner;
 
-import bot.IBot;
 import bot.PassiveBot;
-import bot.RandomBot;
 import evolution.Algorithm;
 import evolution.Individual;
 import evolution.Population;

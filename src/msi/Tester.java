@@ -5,7 +5,6 @@ import bot.BotParser;
 import bot.IBot;
 import engine.fourinarow.FourInARow;
 import evolution.Individual;
-import evolution.Population;
 
 public class Tester {
 	private Individual ind;
@@ -29,7 +28,7 @@ public class Tester {
 		        	System.out.println("Wygra³ osobnik");
 		        else if(winner.equals("player2"))
 		        	System.out.println("Wygra³ bot");
-		        throw new Exception("Bad player name");
+		        else throw new Exception("Bad player name");
 			}
 			catch(Exception ex){
 				System.err.println(ex.getStackTrace());

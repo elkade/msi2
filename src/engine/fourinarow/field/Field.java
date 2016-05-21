@@ -110,23 +110,24 @@ public class Field {
      * @return : String with player names for every cell, or 'empty' when cell is empty.
      */
     public String toString() {
-        String r = "";
+    	StringBuilder sb = new StringBuilder();
         int counter = 0;
         for (int y = 0; y < mRows; y++) {
             for (int x = 0; x < mCols; x++) {
-                r += mBoard[x][y];
+            	sb.append(mBoard[x][y]);
                 if (counter < mRows*mCols-1) {
                     if (x == mCols-1) {
-                        r += ";";
+                    	sb.append(";");
                     } else {
-                        r += ",";
+                    	sb.append(",");
                     }
                 }
                 counter++;
             }
         }
-        return r;
+        return sb.toString();
     }
+   
     
     /**
      * Checks whether the field is full

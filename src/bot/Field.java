@@ -138,18 +138,30 @@ public class Field {
 	 * @return : String
 	 */
 	public String toString() {
-		String r = "";
+		StringBuilder sb = new StringBuilder();
 		int counter = 0;
 		for (int y = 0; y < mRows; y++) {
 			for (int x = 0; x < mCols; x++) {
 				if (counter > 0) {
-					r += ",";
+					sb.append(",");
 				}
-				r += mBoard[x][y];
+				sb.append(mBoard[x][y]);
 				counter++;
 			}
 		}
-		return r;
+		return sb.toString();
+	}
+	
+	public String visualize() {
+		StringBuilder sb = new StringBuilder();
+		for (int y = 0; y < mRows; y++) {
+			for (int x = 0; x < mCols; x++) {
+				sb.append(mBoard[x][y]);
+				sb.append(" ");
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
 	}
 	
 	/**
