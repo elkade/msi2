@@ -45,6 +45,8 @@ public class Tournament extends TournamentBase {
 		        maxEntry = entry;
 		    }
 		}
+		if(log)
+			System.out.println(maxEntry.getValue()+" won");
 		return maxEntry.getKey();
 	}
 }

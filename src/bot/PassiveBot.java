@@ -24,7 +24,7 @@ public class PassiveBot implements IBot {
 		int enemyCounter = 0;
 		int myCounter = 0;
 		for (int i = 0; i < COLS; i++) {
-			for (int j = 0; j < ROWS; i++) {
+			for (int j = 0; j < ROWS; j++) {
 				int disc = field.getDisc(i, j);
 				
 				if(disc == 0){
@@ -33,17 +33,17 @@ public class PassiveBot implements IBot {
 						return i;
 					else if(move==enemyId)
 						bestMove = i;
-					move = searchFourHorizontal(field, i, j);
-					if(move==id)
-						return i;
-					else if(move==enemyId)
-						bestMove = i;
-					move = searchFourDiagonal(field, i, j);
-					if(move==id)
-						return i;
-					else if(move==enemyId)
-						bestMove = i;
-					break;
+//					move = searchFourHorizontal(field, i, j);
+//					if(move==id)
+//						return i;
+//					else if(move==enemyId)
+//						bestMove = i;
+//					move = searchFourDiagonal(field, i, j);
+//					if(move==id)
+//						return i;
+//					else if(move==enemyId)
+//						bestMove = i;
+					//break;
 				}
 				
 //				if(myCounter == 3 && disc == 0)
@@ -70,16 +70,21 @@ public class PassiveBot implements IBot {
 		
 		if(bestMove==-1){
 			Random r = new Random();
-			return r.nextInt(7);
+			int val = r.nextInt(7);
+			System.out.println("random: "+val);
+			return val;
 		}
-		else return bestMove;
+		else{
+			System.out.println("move: "+bestMove);
+			return bestMove;
+		}
 	}
 
 	private int searchFourVertical(Field field, int i, int j) {
-		if(j > 3){
-			int d1 = field.getDisc(i, j - 1);
-			int d2 = field.getDisc(i, j - 2);
-			int d3 = field.getDisc(i, j - 3);
+		if(j < 3){
+			int d1 = field.getDisc(i, j + 1);
+			int d2 = field.getDisc(i, j + 2);
+			int d3 = field.getDisc(i, j + 3);
 			if(d1 == d2 && d2 == d3){
 				if(d1 == id)
 					return id;

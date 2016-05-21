@@ -15,7 +15,8 @@ import tournament.Tournament;
 public class Program {
 	
 	private static final String SERIALIZED_FILE_NAME = "best_population.xml";
-	private static final int POPULATION_COUNT = 50;
+	private static final int POPULATION_COUNT = 100;
+	private static final int GENERATIONS_MAX = 10000;
 	
 	private static Population myPop = null;
 	private static Individual best = null;
@@ -85,12 +86,12 @@ public class Program {
         
         final Reader rdr = new InputStreamReader(System.in);
         final Scanner s = new Scanner(rdr);
-        while (generationCount<1000)
+        while (generationCount<GENERATIONS_MAX)
         {
         	System.out.println("Generation: "+generationCount);
             generationCount++;
             myPop = alg.evolvePopulation(myPop);
-            System.out.println(myPop.getIndividual(0).toCode());
+            System.err.println(myPop.getIndividual(0).toCode());
             if(rdr.ready() && s.nextLine().equals("q"))
             	break;
         }
