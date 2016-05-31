@@ -12,7 +12,7 @@ import tournament.ITournament;
 public class Algorithm {
 
     /* GA parameters */
-    private static final double uniformRate = 0.35;
+    private static final double uniformRate = 0;
     private static final double mutationRate = 0.015;
     private static final int tournamentSize = 7;
     private static final boolean elitism = false;
