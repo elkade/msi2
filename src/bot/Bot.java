@@ -20,12 +20,15 @@ public class Bot implements IBot {
 
 	public int getMove(Field field) {
 		double[] discs = new double[COLS * ROWS];
-
+		//System.out.println(field.visualize());
 		int index = 0;
 		if (playerNumber == 1) {
 			for (int i = 0; i < ROWS; i++) {
 				for (int j = 0; j < COLS; j++) {
-					discs[index++] = field.getDisc(j, i);
+					int d = field.getDisc(j, i);
+					if(d==1)d=1;
+					else if(d==2)d=2;
+					discs[index++] = d;
 				}
 			}
 		}
