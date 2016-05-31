@@ -12,8 +12,8 @@ public abstract class TournamentBase implements ITournament {
 	protected Individual getWinner(Individual ind1, Individual ind2) {
 		try{
 	        FourInARow game = new FourInARow();
-	        game.TEST_BOT_1 = new BotParser(new Bot(ind1.getGenes()));
-	        game.TEST_BOT_2 = new BotParser(new Bot(ind2.getGenes()));
+	        game.TEST_BOT_1 = new BotParser(new Bot(ind1.getGenes(), 1));
+	        game.TEST_BOT_2 = new BotParser(new Bot(ind2.getGenes(), 2));
 	        
 	        game.setupEngine(null);
 	        game.runEngine();

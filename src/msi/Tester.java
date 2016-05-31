@@ -16,7 +16,7 @@ public class Tester {
 	public int performDuel(){
 			try{
 		        FourInARow game = new FourInARow();
-		        game.TEST_BOT_1 = new BotParser(new Bot(ind.getGenes()));
+		        game.TEST_BOT_1 = new BotParser(new Bot(ind.getGenes(), 1));
 		        game.TEST_BOT_2 = new BotParser(bot);
 		        
 		        game.setupEngine(null);
