@@ -19,7 +19,7 @@ public class PassiveBot implements IBot {
 
 	@Override
 	public int getMove(Field field) {
-		System.out.println(field.visualize());
+		//System.out.println(field.visualize());
 		int bestMove = -1;
 		int enemyCounter = 0;
 		int myCounter = 0;
@@ -71,11 +71,11 @@ public class PassiveBot implements IBot {
 		if(bestMove==-1){
 			Random r = new Random();
 			int val = r.nextInt(7);
-			System.out.println("random: "+val);
+			//System.out.println("random: "+val);
 			return val;
 		}
 		else{
-			System.out.println("move: "+bestMove);
+			//System.out.println("move: "+bestMove);
 			return bestMove;
 		}
 	}

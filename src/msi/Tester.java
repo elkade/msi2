@@ -13,7 +13,7 @@ public class Tester {
 		this.ind = ind;
 		this.bot = bot;
 	}
-	public void performDuel(){
+	public int performDuel(){
 			try{
 		        FourInARow game = new FourInARow();
 		        game.TEST_BOT_1 = new BotParser(new Bot(ind.getGenes()));
@@ -22,12 +22,18 @@ public class Tester {
 		        game.setupEngine(null);
 		        game.runEngine();
 		        String winner = game.getWinnerName();
-		        if(winner==null)
-		        	System.out.println("Remis");
-		        else if(winner.equals("player1"))
-		        	System.out.println("Wygra³ osobnik");
-		        else if(winner.equals("player2"))
-		        	System.out.println("Wygra³ bot");
+		        if(winner==null){
+		        	//System.out.println("Remis");
+		        	return 1;
+		        }
+		        else if(winner.equals("player1")){
+		        	//System.out.println("Wygra³ osobnik");
+		        	return 3;
+		        }
+		        else if(winner.equals("player2")){
+		        	//System.out.println("Wygra³ bot");
+		        	return 0;
+		        }
 		        else throw new Exception("Bad player name");
 			}
 			catch(Exception ex){

@@ -12,14 +12,14 @@ import tournament.ITournament;
 public class Algorithm {
 
     /* GA parameters */
-    private static final double uniformRate = 0.0;
+    private static final double uniformRate = 0.25;
     private static final double mutationRate = 0.015;
-    private static final int tournamentSize = 10;
+    private static final int tournamentSize = 7;
     private static final boolean elitism = false;
 
     /* Public methods */
     private ITournament tournament;
-    
+
     public Algorithm(ITournament tournament){
     	
     	this.tournament = tournament;
@@ -59,8 +59,12 @@ public class Algorithm {
                         	Random r = new Random();
                         	indiv1=pop.getIndividual(r.nextInt(pop.size()));
                         }
-                        //Individual indiv2 = tournamentSelection(pop);
-                        Individual newIndiv = crossover(indiv1, indiv1);
+                        Individual indiv2 = tournamentSelection(pop);//pop.getIndividual(j);
+                        if(indiv2==null){
+                        	Random r = new Random();
+                        	indiv2=pop.getIndividual(r.nextInt(pop.size()));
+                        }
+                        Individual newIndiv = crossover(indiv1, indiv2);
                         newPopulation.saveIndividual(j, newIndiv);
                         
                         mutate(newPopulation.getIndividual(j));
@@ -80,6 +84,7 @@ public class Algorithm {
 //            mutate(newPopulation.getIndividual(i));
 //        }
         System.err.println((System.nanoTime()-t)/1000000 + "ms\n");
+        newPopulation.GenerationNumber = pop.GenerationNumber+1;
         return newPopulation;
     }
 

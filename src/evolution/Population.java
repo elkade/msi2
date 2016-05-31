@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 public class Population {
-
+    public int GenerationNumber = 0;
     Individual[] individuals;
     
     public Population(Individual[] individuals){
